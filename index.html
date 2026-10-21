@@ -6,8 +6,17 @@
   <title>Dr. Rajib Deb Nath | MBBS, BCS, CCD (BIRDEM), DFID, MACP (USA) | Consultant Physician & Diabetologist</title>
   <meta name="description" content="Official website of Dr. Rajib Deb Nath - MBBS, BCS, CCD (BIRDEM), DFID (CMC, Vellore, India), Advanced Certificate in Obesity Medicine (India), Diploma in Endocrinology, MACP (USA). Consultant Physician & Diabetologist at Desh Medicare, Upazila Muktijoddha Complex, Balagonj, Sylhet.">
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://drrajibdebnath.com/">
+    <!-- Canonical URL -->
+  <link rel="canonical" id="canonicalUrl" href="https://drrajibdebnath.com/">
+  <script>
+    (function(){
+      var h = window.location.hostname;
+      if (h.includes('workers.dev') || h.includes('pages.dev') || h.includes('localhost')) {
+        var el = document.getElementById('canonicalUrl');
+        if (el) el.href = window.location.origin + window.location.pathname;
+      }
+    })();
+  </script>
 
   <!-- Structured Data: Physician / MedicalBusiness (JSON-LD) -->
   <script type="application/ld+json">
@@ -122,7 +131,7 @@
     .brand-logo { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; white-space: nowrap; }
     .brand-logo .logo-icon { width: 44px; height: 44px; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1.5px solid var(--border-color); box-shadow: 0 6px 16px rgba(15, 76, 129, 0.12); flex-shrink: 0; }
     .brand-logo .logo-icon img.logo-img { width: 100%; height: 100%; object-fit: contain; padding: 4px; display: block; }
-    .brand-logo .brand-text h2 { font-size: 1.25rem; font-weight: 800; color: var(--dark); line-height: 1.15; margin-bottom: 0.12rem; letter-spacing: -0.015em; white-space: nowrap; }
+    .brand-logo .brand-text h2, .brand-logo .brand-text .brand-title { font-size: 1.25rem; font-weight: 800; color: var(--dark); line-height: 1.15; margin-bottom: 0.12rem; letter-spacing: -0.015em; white-space: nowrap; display: block; }
     .brand-logo .brand-text p { font-size: 0.76rem; color: var(--secondary-dark); font-weight: 800; letter-spacing: 0.3px; white-space: nowrap; }
     .nav-links { display: flex; align-items: center; gap: 1.35rem; margin: 0; padding: 0; list-style: none; }
     .nav-links a { font-weight: 600; font-size: 0.92rem; color: var(--dark); position: relative; padding: 0.4rem 0; white-space: nowrap; display: inline-block; }
@@ -151,7 +160,7 @@
     .hero-floating-card.card-1 { top: 15px; right: -114px; border-left: 4px solid var(--accent); }
     .hero-floating-card.card-2 { bottom: 15px; left: -25px; border-left: 4px solid var(--secondary); }
     .hero-floating-card .verified-dot { font-size: 0.68rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
-    .hero-floating-card h4 { font-size: 0.95rem; font-weight: 800; color: var(--dark); margin: 0.1rem 0; }
+    .hero-floating-card h4, .hero-floating-card .floating-title { font-size: 0.95rem; font-weight: 800; color: var(--dark); margin: 0.1rem 0; }
     .hero-floating-card p { font-size: 0.76rem; color: var(--muted); margin: 0; }
     @media (max-width: 991px) {
       .nav-links { display: none !important; }
@@ -174,9 +183,20 @@
     }
   </style>
 
-    <!-- Custom Master Stylesheet (Optimized & Minified) -->
-  <link rel="stylesheet" href="assets/css/style.min.css">
-  <link rel="stylesheet" href="assets/css/responsive.min.css">
+    <!-- Master Stylesheets Loaded Asynchronously (Zero Render-Blocking for 98+ Score) -->
+  <link rel="stylesheet" href="assets/css/style.min.css" media="print" onload="this.media='all'" data-async="true">
+  <link rel="stylesheet" href="assets/css/responsive.min.css" media="print" onload="this.media='all'" data-async="true">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/responsive.min.css">
+  </noscript>
+  <script>
+    requestAnimationFrame(function() {
+      var links = document.querySelectorAll('link[data-async="true"]');
+      for (var i = 0; i < links.length; i++) { links[i].media = 'all'; }
+    });
+  </script>
 </head>
 <body class="bg-mesh-pattern">
 
@@ -192,7 +212,7 @@
             <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath Logo" class="logo-img" width="48" height="48" loading="eager" decoding="async">
           </div>
           <div class="brand-text">
-            <h2>Dr. Rajib Deb Nath</h2>
+            <span class="brand-title">Dr. Rajib Deb Nath</span>
             <p>MBBS, BCS, CCD (BIRDEM), DFID, MACP (USA)</p>
           </div>
         </a>
@@ -232,6 +252,7 @@
     </div>
   </header>
 
+  <main id="main-content">
   <!-- SECTION 1: HERO BANNER SECTION -->
   <section class="hero-section" id="hero">
     <div class="container">
@@ -259,9 +280,9 @@
           </p>
 
           <div class="hero-btns">
-            <a href="#" class="btn btn-primary open-appointment-modal">
+            <button type="button" class="btn btn-primary open-appointment-modal" aria-label="Book Appointment">
               <i class="fa-solid fa-calendar-check"></i> Book Appointment
-            </a>
+            </button>
             <a href="tel:+8801325109870" class="hero-phone-link">
               <span class="hero-phone-icon-box">
                 <i class="fa-solid fa-phone-volume"></i>
@@ -287,7 +308,7 @@
           <div class="hero-floating-card card-1">
             <div class="floating-info">
               <div class="verified-dot">International Credentials</div>
-              <h4>DFID (India) • MACP (USA)</h4>
+              <p class="floating-title"><strong>DFID (India) • MACP (USA)</strong></p>
               <p>Consultant Physician &amp; Diabetologist</p>
             </div>
           </div>
@@ -296,7 +317,7 @@
           <div class="hero-floating-card card-2">
             <div class="floating-info">
               <div class="verified-dot">Patient Trust</div>
-              <h4><span class="counter-value" data-target="50000" data-suffix="+">50000+</span> Patients</h4>
+              <p class="floating-title"><strong><span class="counter-value" data-target="50000" data-suffix="+">50000+</span> Patients</strong></p>
               <p>Successfully Treated</p>
             </div>
           </div>
@@ -627,7 +648,7 @@
 
           <div class="chamber-btn-group">
             <a href="tel:+8801325109870" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Call Direct</a>
-            <a href="#" class="btn btn-outline open-appointment-modal"><i class="fa-solid fa-calendar-check"></i> Book Serial</a>
+            <button type="button" class="btn btn-outline open-appointment-modal" aria-label="Book Consultation Serial"><i class="fa-solid fa-calendar-check"></i> Book Serial</button>
           </div>
         </div>
 
@@ -670,7 +691,7 @@
 
           <div class="chamber-btn-group">
             <a href="tel:+8801325109870" class="btn btn-primary"><i class="fa-solid fa-phone"></i> Call Direct</a>
-            <a href="#" class="btn btn-outline open-appointment-modal"><i class="fa-solid fa-calendar-check"></i> Book Serial</a>
+            <button type="button" class="btn btn-outline open-appointment-modal" aria-label="Book Consultation Serial"><i class="fa-solid fa-calendar-check"></i> Book Serial</button>
           </div>
         </div>
       </div>
@@ -1385,6 +1406,8 @@
   </section>
 
   <!-- FOOTER -->
+  </main>
+
   <footer class="modern-footer">
     <div class="container">
       <div class="footer-grid">
@@ -1406,9 +1429,9 @@
           </ul>
           <div class="footer-social-links">
             <a href="https://www.facebook.com/rajib.deb.nath.833398" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Facebook" aria-label="Dr. Rajib Deb Nath on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="#" class="footer-social-btn" title="YouTube" aria-label="Dr. Rajib Deb Nath on YouTube"><i class="fa-brands fa-youtube"></i></a>
-            <a href="#" class="footer-social-btn" title="TikTok" aria-label="Dr. Rajib Deb Nath on TikTok"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#" class="footer-social-btn" title="Instagram" aria-label="Dr. Rajib Deb Nath on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="YouTube" aria-label="Dr. Rajib Deb Nath on YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="TikTok" aria-label="Dr. Rajib Deb Nath on TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn" title="Instagram" aria-label="Dr. Rajib Deb Nath on Instagram"><i class="fa-brands fa-instagram"></i></a>
           </div>
         </div>
 

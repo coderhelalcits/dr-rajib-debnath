@@ -330,9 +330,11 @@ body.dark-theme .brand-logo .logo-icon {
   display: block;
 }
 
-.brand-logo .brand-text h2 {
+.brand-logo .brand-text h2,
+.brand-logo .brand-text .brand-title {
   font-family: var(--font-heading);
   font-size: 1.25rem;
+  display: block;
   font-weight: 800;
   color: var(--dark);
   line-height: 1.15;
@@ -943,7 +945,8 @@ body.dark-theme .hero-img-box img {
   text-align: left;
 }
 
-.floating-info h4 {
+.floating-info h4,
+.floating-info .floating-title {
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--dark);

@@ -7,3 +7,4 @@ wrangler.json
 node_modules/
 *.log
 scratch/
+.wrangler/

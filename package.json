@@ -1,0 +1,12 @@
+{
+  "name": "dr-rajib-debnath",
+  "version": "1.0.0",
+  "description": "Dr. Rajib Deb Nath Official Website",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0"
+  }
+}

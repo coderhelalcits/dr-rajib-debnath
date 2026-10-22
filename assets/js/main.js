@@ -224,26 +224,66 @@ $(document).ready(function () {
   const tomorrowStr = tomorrow.toISOString().split('T')[0];
   $('#appointDate, #cAppointDate').attr('min', tomorrowStr).val(tomorrowStr);
 
-  // 7. Appointment Form Submission Handling (Modal & Contact Page)
+  // 7. Appointment Form Submission Handling (Modal & Contact Page) - Web3Forms Direct Email
+  const WEB3FORMS_ACCESS_KEY = 'cd04ae03-1c47-407e-b727-71ebf9bd4f6b';
+
   $('#appointmentForm, #contactPageForm').on('submit', function (e) {
     e.preventDefault();
     const isContactForm = $(this).attr('id') === 'contactPageForm';
     const nameInput = isContactForm ? $('#cPatientName') : $('#patientName');
     const phoneInput = isContactForm ? $('#cPatientPhone') : $('#patientPhone');
+    const ageInput = isContactForm ? $('#cPatientAge') : $('#patientAge');
+    const dateInput = isContactForm ? $('#cAppointDate') : $('#appointDate');
+    const chamberSelect = isContactForm ? $('#cChamber') : $('#chamberLocation');
+    const noteInput = isContactForm ? $('#cNote') : $('#problemNote');
 
     const patientName = nameInput.val().trim();
     const patientPhone = phoneInput.val().trim();
+    const patientAge = ageInput.val() ? ageInput.val().trim() : 'N/A';
+    const appointDate = dateInput.val() ? dateInput.val().trim() : 'N/A';
+    const chamberLocation = chamberSelect.val() ? chamberSelect.find('option:selected').text().trim() : 'N/A';
+    const problemNote = noteInput.val() ? noteInput.val().trim() : 'N/A';
 
     if (!patientName || !patientPhone) {
-      showToast('Please enter your name and mobile number', 'error');
+      showToast('অনুগ্রহ করে আপনার নাম এবং মোবাইল নম্বর দিন', 'error');
       return;
     }
 
     const submitBtn = $(this).find('button[type="submit"]');
     const originalText = submitBtn.html();
-    submitBtn.html('<i class="fa-solid fa-spinner fa-spin"></i> Confirming Booking...').prop('disabled', true);
+    submitBtn.html('<i class="fa-solid fa-spinner fa-spin"></i> সাবমিট হচ্ছে...').prop('disabled', true);
 
-    setTimeout(function () {
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `নতুন চেম্বার সিরিয়াল বুকিং: ${patientName}`,
+      from_name: 'Dr. Rajib Deb Nath Website',
+      'Patient Name': patientName,
+      'Mobile Number': patientPhone,
+      'Patient Age': patientAge,
+      'Appointment Date': appointDate,
+      'Chamber Location': chamberLocation,
+      'Reason / Symptoms': problemNote
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      finishSubmission();
+    })
+    .catch(function (error) {
+      finishSubmission();
+    });
+
+    function finishSubmission() {
       if (!isContactForm) {
         $('#appointmentModal').fadeOut(250, function () {
           $('body').css('overflow', 'auto');
@@ -257,8 +297,23 @@ $(document).ready(function () {
         $('#appointmentForm')[0].reset();
       }
 
-      showToast(`Thank you ${patientName}! Your appointment has been registered successfully.`);
-    }, 1200);
+      showToast(`ধন্যবাদ ${patientName}! আপনার সিরিয়াল রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে।`);
+
+      // WhatsApp Message
+      const waMessage = `হ্যালো ডা. রাজীব দেবনাথ, আমি চেম্বার সিরিয়াল বুক করতে চাই:
+
+*নাম:* ${patientName}
+*মোবাইল:* ${patientPhone}
+*বয়স:* ${patientAge}
+*তারিখ:* ${appointDate}
+*চেম্বার:* ${chamberLocation}
+*সমস্যা:* ${problemNote}`;
+      const waUrl = `https://wa.me/8801325109870?text=${encodeURIComponent(waMessage)}`;
+
+      setTimeout(function () {
+        window.open(waUrl, '_blank');
+      }, 700);
+    }
   });
 
   // 8. FAQ Accordion Click Handler

@@ -119,12 +119,7 @@
     <link rel="stylesheet" href="assets/css/style.min.css">
     <link rel="stylesheet" href="assets/css/responsive.min.css">
   </noscript>
-  <script>
-    requestAnimationFrame(function() {
-      var links = document.querySelectorAll('link[data-async="true"]');
-      for (var i = 0; i < links.length; i++) { links[i].media = 'all'; }
-    });
-  </script>
+  
 </head>
 <body>
 
@@ -740,5 +735,16 @@
   <!-- jQuery & JS -->
   <script src="assets/js/jquery-3.7.0.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
+  <!-- Non-blocking Delayed Async Stylesheet Fallback -->
+  <script id="data-async-fallback">
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var links = document.querySelectorAll('link[data-async="true"]');
+        for (var i = 0; i < links.length; i++) {
+          if (links[i].media !== 'all') { links[i].media = 'all'; }
+        }
+      }, 1500);
+    });
+  </script>
 </body>
 </html>

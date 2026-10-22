@@ -79,16 +79,16 @@
   <meta name="twitter:description" content="Official website of Dr. Rajib Deb Nath — MBBS, BCS, CCD (BIRDEM), DFID (CMC, Vellore), MACP (USA). Specialist in Diabetes Care, Thyroid Diseases, Obesity & Metabolic Medicine in Sylhet, Bangladesh.">
   <meta name="twitter:image" content="assets/images/og-thumbnail.jpg">
   
-  <!-- Preload Critical LCP Mobile Image -->
-  <link rel="preload" as="image" href="assets/images/dr_rajib_doctor_coat_mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
-  <link rel="preload" as="image" href="assets/images/dr_rajib_doctor_coat.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
+  <!-- Preload Critical Hero Image (High Priority Instant Paint) -->
+  <link rel="preload" as="image" href="assets/images/dr_rajib_doctor_coat.webp" type="image/webp" fetchpriority="high">
   
-  <!-- Google Fonts: Plus Jakarta Sans (Preloaded & Optimized) -->
+  <!-- Google Fonts: Plus Jakarta Sans (Preloaded & Async Non-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
   
-  <!-- FontAwesome 6 CDN (Preloaded & Non-blocking) -->
+  <!-- FontAwesome 6 CDN (Non-blocking Async) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" data-async="true">
 
   <!-- Critical Inline CSS for Instant 0ms Above-The-Fold Render (FCP < 0.8s) -->
@@ -213,12 +213,7 @@
     <link rel="stylesheet" href="assets/css/style.min.css">
     <link rel="stylesheet" href="assets/css/responsive.min.css">
   </noscript>
-  <script>
-    requestAnimationFrame(function() {
-      var links = document.querySelectorAll('link[data-async="true"]');
-      for (var i = 0; i < links.length; i++) { links[i].media = 'all'; }
-    });
-  </script>
+
 </head>
 <body class="bg-mesh-pattern">
 
@@ -321,7 +316,7 @@
             <span>Consultant Physician | Diabetologist &amp; Metabolic Disease Specialist</span>
           </div>
 
-          <img src="assets/images/dr_rajib_doctor_coat.webp" srcset="assets/images/dr_rajib_doctor_coat_mobile.webp 480w, assets/images/dr_rajib_doctor_coat.webp 790w" sizes="(max-width: 768px) 100vw, 440px" alt="Dr. Rajib Deb Nath Portrait - Consultant Physician & Diabetologist" width="790" height="1024" fetchpriority="high" loading="eager" decoding="async">
+          <img src="assets/images/dr_rajib_doctor_coat.webp" alt="Dr. Rajib Deb Nath Portrait - Consultant Physician & Diabetologist" width="790" height="1024" fetchpriority="high" loading="eager" decoding="async">
           
           <!-- FLOATING CARD 1 (TOP RIGHT) -->
           <div class="hero-floating-card card-1">
@@ -539,7 +534,7 @@
           <div class="reel-phone-screen">
             <div class="reel-doctor-header">
               <div class="reel-doc-info">
-                <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath" class="reel-doc-avatar">
+                <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath" class="reel-doc-avatar" width="48" height="48" loading="lazy" decoding="async">
                 <div class="reel-doc-meta">
                   <h4>Dr. Rajib Deb Nath</h4>
                   <span>Consultant Physician &amp; Diabetologist</span>
@@ -566,7 +561,7 @@
           <div class="reel-phone-screen">
             <div class="reel-doctor-header">
               <div class="reel-doc-info">
-                <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath" class="reel-doc-avatar">
+                <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath" class="reel-doc-avatar" width="48" height="48" loading="lazy" decoding="async">
                 <div class="reel-doc-meta">
                   <h4>Dr. Rajib Deb Nath</h4>
                   <span>Consultant Physician &amp; Diabetologist</span>
@@ -593,7 +588,7 @@
           <div class="reel-phone-screen">
             <div class="reel-doctor-header">
               <div class="reel-doc-info">
-                <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath" class="reel-doc-avatar">
+                <img src="assets/images/emblem_light.webp" alt="Dr. Rajib Deb Nath" class="reel-doc-avatar" width="48" height="48" loading="lazy" decoding="async">
                 <div class="reel-doc-meta">
                   <h4>Dr. Rajib Deb Nath</h4>
                   <span>Consultant Physician &amp; Diabetologist</span>
@@ -1197,7 +1192,7 @@
         <div class="blog-card reveal-up delay-100">
           <div class="blog-img-box">
             <a href="single-blog.html" style="display: block; width: 100%; height: 100%;">
-              <img src="assets/images/blog-1.webp" alt="Diabetes Control Guide">
+              <img src="assets/images/blog-1.webp" alt="Diabetes Control Guide" width="1200" height="800" loading="lazy" decoding="async">
               <span class="blog-tag">Diabetes Care</span>
             </a>
           </div>
@@ -1217,7 +1212,7 @@
         <div class="blog-card reveal-up delay-200">
           <div class="blog-img-box">
             <a href="single-blog.html" style="display: block; width: 100%; height: 100%;">
-              <img src="assets/images/blog-2.webp" alt="Endocrinology & Obesity Care">
+              <img src="assets/images/blog-2.webp" alt="Endocrinology & Obesity Care" width="1200" height="800" loading="lazy" decoding="async">
               <span class="blog-tag">Endocrinology &amp; Obesity</span>
             </a>
           </div>
@@ -1237,7 +1232,7 @@
         <div class="blog-card reveal-up delay-300">
           <div class="blog-img-box">
             <a href="single-blog.html" style="display: block; width: 100%; height: 100%;">
-              <img src="assets/images/blog-3.webp" alt="Hypertension Care">
+              <img src="assets/images/blog-3.webp" alt="Hypertension Care" width="1200" height="800" loading="lazy" decoding="async">
               <span class="blog-tag">Medicine Advice</span>
             </a>
           </div>
@@ -1369,7 +1364,7 @@
 
             <!-- Doctor Trust Rating Box -->
             <div class="doctor-trust-box">
-              <img src="assets/images/dr_rajib_avatar.webp" alt="Dr. Rajib Deb Nath" class="doctor-thumb">
+              <img src="assets/images/dr_rajib_avatar.webp" alt="Dr. Rajib Deb Nath" class="doctor-thumb" width="400" height="400" loading="lazy" decoding="async">
               <div>
                 <div class="rating-stars">
                   <i class="fa-solid fa-star"></i>
@@ -1614,5 +1609,16 @@
   <!-- Local High-Performance jQuery & Main Script (Deferred) -->
   <script src="assets/js/jquery-3.7.0.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
+  <!-- Non-blocking Delayed Async Stylesheet Fallback -->
+  <script id="data-async-fallback">
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var links = document.querySelectorAll('link[data-async="true"]');
+        for (var i = 0; i < links.length; i++) {
+          if (links[i].media !== 'all') { links[i].media = 'all'; }
+        }
+      }, 1500);
+    });
+  </script>
 </body>
 </html>

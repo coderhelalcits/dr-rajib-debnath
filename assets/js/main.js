@@ -301,6 +301,59 @@ $(document).ready(function () {
     }
   });
 
+  // 7b. Quick Serial Booking Form Handling (.cta-inline-form)
+  $(document).on('submit', '.cta-inline-form, #ctaQuickSerialForm', function (e) {
+    e.preventDefault();
+    const form = $(this);
+    const nameInput = form.find('input[name="patientName"], #ctaPatientName');
+    const phoneInput = form.find('input[name="patientPhone"], #ctaPatientPhone');
+
+    const patientName = nameInput.val().trim();
+    const patientPhone = phoneInput.val().trim();
+
+    if (!patientName || !patientPhone) {
+      showToast('অনুগ্রহ করে আপনার নাম এবং মোবাইল নম্বর দিন', 'error');
+      return;
+    }
+
+    const submitBtn = form.find('button[type="submit"]');
+    const originalText = submitBtn.html();
+    submitBtn.html('<i class="fa-solid fa-spinner fa-spin"></i> সাবমিট হচ্ছে...').prop('disabled', true);
+
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `নতুন কুইক চেম্বার সিরিয়াল: ${patientName}`,
+      from_name: 'Dr. Rajib Deb Nath Website (Quick Serial)',
+      'Patient Name': patientName,
+      'Mobile Phone': patientPhone,
+      'Form Source': 'Quick Serial Booking (Chamber CTA Section)'
+    };
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      finishQuickSubmit();
+    })
+    .catch(function (error) {
+      finishQuickSubmit();
+    });
+
+    function finishQuickSubmit() {
+      submitBtn.html(originalText).prop('disabled', false);
+      form[0].reset();
+      showToast(`ধন্যবাদ ${patientName}! আপনার কুইক সিরিয়াল রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে।`);
+    }
+  });
+
   // 8. FAQ Accordion Click Handler
   $(document).on('click', '.faq-question, .accordion-header', function () {
     const item = $(this).closest('.faq-item, .accordion-item');

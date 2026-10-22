@@ -298,21 +298,6 @@ $(document).ready(function () {
       }
 
       showToast(`ধন্যবাদ ${patientName}! আপনার সিরিয়াল রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে।`);
-
-      // WhatsApp Message
-      const waMessage = `হ্যালো ডা. রাজীব দেবনাথ, আমি চেম্বার সিরিয়াল বুক করতে চাই:
-
-*নাম:* ${patientName}
-*মোবাইল:* ${patientPhone}
-*বয়স:* ${patientAge}
-*তারিখ:* ${appointDate}
-*চেম্বার:* ${chamberLocation}
-*সমস্যা:* ${problemNote}`;
-      const waUrl = `https://wa.me/8801325109870?text=${encodeURIComponent(waMessage)}`;
-
-      setTimeout(function () {
-        window.open(waUrl, '_blank');
-      }, 700);
     }
   });
 

@@ -225,25 +225,57 @@ $(document).ready(function () {
   $('#appointDate, #cAppointDate').attr('min', tomorrowStr).val(tomorrowStr);
 
   // 7. Appointment Form Submission Handling (Modal & Contact Page)
+  const APPOINTMENT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5LD_wqV8E4iiFfF6U_tRjWVxAdfzL8B2Q4bkwOQfZsI3V_q-27mzbhJUJc5khwxM/exec';
+
   $('#appointmentForm, #contactPageForm').on('submit', function (e) {
     e.preventDefault();
     const isContactForm = $(this).attr('id') === 'contactPageForm';
     const nameInput = isContactForm ? $('#cPatientName') : $('#patientName');
     const phoneInput = isContactForm ? $('#cPatientPhone') : $('#patientPhone');
+    const ageInput = isContactForm ? $('#cPatientAge') : $('#patientAge');
+    const dateInput = isContactForm ? $('#cAppointDate') : $('#appointDate');
+    const chamberSelect = isContactForm ? $('#cChamber') : $('#chamberLocation');
+    const noteInput = isContactForm ? $('#cNote') : $('#problemNote');
 
     const patientName = nameInput.val().trim();
     const patientPhone = phoneInput.val().trim();
+    const patientAge = ageInput.val() ? ageInput.val().trim() : '';
+    const appointDate = dateInput.val() ? dateInput.val().trim() : '';
+    const chamberLocation = chamberSelect.val() ? chamberSelect.find('option:selected').text().trim() : '';
+    const problemNote = noteInput.val() ? noteInput.val().trim() : '';
 
     if (!patientName || !patientPhone) {
-      showToast('Please enter your name and mobile number', 'error');
+      showToast('অনুগ্রহ করে নাম এবং মোবাইল নম্বর দিন', 'error');
       return;
     }
 
     const submitBtn = $(this).find('button[type="submit"]');
     const originalText = submitBtn.html();
-    submitBtn.html('<i class="fa-solid fa-spinner fa-spin"></i> Confirming Booking...').prop('disabled', true);
+    submitBtn.html('<i class="fa-solid fa-spinner fa-spin"></i> সাবমিট হচ্ছে...').prop('disabled', true);
 
-    setTimeout(function () {
+    const formData = new URLSearchParams();
+    formData.append('patientName', patientName);
+    formData.append('patientPhone', patientPhone);
+    formData.append('patientAge', patientAge);
+    formData.append('appointDate', appointDate);
+    formData.append('chamberLocation', chamberLocation);
+    formData.append('problemNote', problemNote);
+
+    // ১. Google Sheets এবং Gmail-এ ডাটা প্রেরণ
+    fetch(APPOINTMENT_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    })
+    .then(function () {
+      finishSubmission();
+    })
+    .catch(function () {
+      // Even if fetch returns CORS warning in some browsers, Google Script still processes POST
+      finishSubmission();
+    });
+
+    function finishSubmission() {
       if (!isContactForm) {
         $('#appointmentModal').fadeOut(250, function () {
           $('body').css('overflow', 'auto');
@@ -257,8 +289,16 @@ $(document).ready(function () {
         $('#appointmentForm')[0].reset();
       }
 
-      showToast(`Thank you ${patientName}! Your appointment has been registered successfully.`);
-    }, 1200);
+      showToast(`ধন্যবাদ ${patientName}! আপনার সিরিয়াল রিকোয়েস্ট সফলভাবে জমা হয়েছে।`);
+
+      // ২. WhatsApp-এ বিস্তারিত তথ্যসহ মেসেজ ওপেন
+      const waMessage = `হ্যালো ডা. রাজীব দেবনাথ, আমি চেম্বার সিরিয়াল বুক করতে চাই:\n\n*নাম:* ${patientName}\n*মোবাইল:* ${patientPhone}\n*বয়স:* ${patientAge || 'N/A'}\n*তারিখ:* ${appointDate}\n*চেম্বার:* ${chamberLocation}\n*সমস্যা:* ${problemNote || 'N/A'}`;
+      const waUrl = `https://wa.me/8801325109870?text=${encodeURIComponent(waMessage)}`;
+
+      setTimeout(function () {
+        window.open(waUrl, '_blank');
+      }, 700);
+    }
   });
 
   // 8. FAQ Accordion Click Handler

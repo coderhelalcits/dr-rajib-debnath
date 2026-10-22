@@ -1072,13 +1072,13 @@
 
             <form class="cta-inline-form" id="ctaQuickSerialForm">
               <div class="cta-input-group">
-                <label><i class="fa-solid fa-user"></i> Patient Name</label>
-                <input type="text" placeholder="Enter patient full name" required class="cta-form-input">
+                <label for="ctaPatientName"><i class="fa-solid fa-user"></i> Patient Name</label>
+                <input type="text" id="ctaPatientName" name="patientName" placeholder="Enter patient full name" required class="cta-form-input">
               </div>
 
               <div class="cta-input-group">
-                <label><i class="fa-solid fa-phone"></i> Mobile Phone</label>
-                <input type="tel" placeholder="017XXXXXXXX" required class="cta-form-input">
+                <label for="ctaPatientPhone"><i class="fa-solid fa-phone"></i> Mobile Phone</label>
+                <input type="tel" id="ctaPatientPhone" name="patientPhone" placeholder="017XXXXXXXX" required class="cta-form-input">
               </div>
 
               <button type="submit" class="btn cta-submit-neon-btn">
@@ -1086,7 +1086,7 @@
               </button>
 
               <div class="cta-form-or-call">
-                <span>OR Call Hotline Directly:</span>
+                <span>OR Call Serial No. Directly:</span>
                 <a href="tel:+8801325109870"><i class="fa-solid fa-headset"></i> +8801325109870</a>
               </div>
             </form>

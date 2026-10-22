@@ -305,11 +305,11 @@ $(document).ready(function () {
   $(document).on('submit', '.cta-inline-form, #ctaQuickSerialForm', function (e) {
     e.preventDefault();
     const form = $(this);
-    const nameInput = form.find('input[name="patientName"], #ctaPatientName');
-    const phoneInput = form.find('input[name="patientPhone"], #ctaPatientPhone');
+    const nameInput = form.find('input[name="patientName"], #ctaPatientName, input[type="text"]').first();
+    const phoneInput = form.find('input[name="patientPhone"], #ctaPatientPhone, input[type="tel"]').first();
 
-    const patientName = nameInput.val().trim();
-    const patientPhone = phoneInput.val().trim();
+    const patientName = nameInput.val() ? nameInput.val().trim() : '';
+    const patientPhone = phoneInput.val() ? phoneInput.val().trim() : '';
 
     if (!patientName || !patientPhone) {
       showToast('অনুগ্রহ করে আপনার নাম এবং মোবাইল নম্বর দিন', 'error');
